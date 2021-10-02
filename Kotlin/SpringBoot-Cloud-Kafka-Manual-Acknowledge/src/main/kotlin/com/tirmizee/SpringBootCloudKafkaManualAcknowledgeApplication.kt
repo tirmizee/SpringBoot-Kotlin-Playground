@@ -1,4 +1,4 @@
-package com.tirmizee.SpringBootCloudKafkaManualAcknowledge
+package com.tirmizee
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
