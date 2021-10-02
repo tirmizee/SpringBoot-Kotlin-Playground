@@ -27,6 +27,11 @@
 
 
 
+
+#### @EnableBinding
+
+สำหรับกำหนดค่าพื่อผูก INPUT และ OUTPUT ที่กำหนดไว้ภายใน Interface
+
 ### Reference
 
 - https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html
