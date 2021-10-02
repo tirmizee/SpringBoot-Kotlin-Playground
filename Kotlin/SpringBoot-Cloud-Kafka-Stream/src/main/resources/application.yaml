@@ -1,2 +1,31 @@
 server:
   port: 8080
+---
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          autoCreateTopics: true
+          brokers:
+            - localhost:9092
+        configuration:
+      bindings:
+        customerProducer:
+          destination: topic.customer.0
+          producer:
+            configuration:
+        customerConsumer:
+          destination: topic.customer.0
+          group: Customer.Group.0
+          consumer:
+            configuration:
+        notificationProducer:
+          destination: notification.customer.0
+          producer:
+            configuration:
+        notificationConsumer:
+          destination: notification.customer.0
+          group: Notification.Group.0
+          consumer:
+            configuration:
