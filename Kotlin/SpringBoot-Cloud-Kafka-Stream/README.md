@@ -1,11 +1,6 @@
 ### Spring cloud Stream Kafka
 
 
-### Reference
-
-- https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html
-
-
 ### run docker-compose 
 
 
@@ -29,3 +24,9 @@
           - ALLOW_PLAINTEXT_LISTENER=yes
         depends_on:
           - zookeeper
+
+
+
+### Reference
+
+- https://cloud.spring.io/spring-cloud-stream-binder-kafka/spring-cloud-stream-binder-kafka.html
