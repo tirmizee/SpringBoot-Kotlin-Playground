@@ -1,0 +1,13 @@
+server:
+  port: 8080
+---
+spring:
+  application:
+    name: sample-spring-elasticsearch
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: localhost:9200
+          username: elastic
+          password: passw
