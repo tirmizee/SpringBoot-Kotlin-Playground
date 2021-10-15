@@ -1,0 +1,5 @@
+test:
+  service-port: ${SERVICE_PORT:defualt}
+  service-ip: ${SERVICE_IP:defualt}
+  protocol: ${PROTOCOL:defualt}
+  service-address: ${SERVICE_ADDRESS:defualt}
