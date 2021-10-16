@@ -4,11 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
+import org.springframework.core.env.Environment
+import org.springframework.core.env.get
 
 @SpringBootApplication
 class SpringBootEnvironmentVariableApplication : CommandLineRunner {
+
+	@Autowired
+	lateinit var env: Environment
 
 	@Value("\${test.url}")
 	lateinit var url: String
@@ -36,6 +40,11 @@ class SpringBootEnvironmentVariableApplication : CommandLineRunner {
 		println("protocol $protocol")
 		println("serviceAddress $serviceAddress")
 		println("url $url")
+
+		println(env["SERVICE_PORT"])
+		println(env["SERVICE_IP"])
+		println(env["PROTOCOL"])
+		println(env["SERVICE_ADDRESS"])
 
 	}
 
