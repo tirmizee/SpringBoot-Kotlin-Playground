@@ -62,3 +62,19 @@ spec:
       targetPort: 8080
 
 ```
+
+### application.yaml
+
+
+```yaml
+
+server:
+  port: 8080
+test:
+  service-port: ${SERVICE_PORT:defualt}
+  service-ip: ${SERVICE_IP:defualt}
+  protocol: ${PROTOCOL:defualt}
+  service-address: ${SERVICE_ADDRESS:defualt}
+  url: ${test.service-ip}:${test.service-port}
+  
+```
