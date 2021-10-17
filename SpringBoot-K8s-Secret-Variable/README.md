@@ -14,3 +14,19 @@
     EXPOSE 8080
 
     ENTRYPOINT ["java","-jar","app.jar"]
+
+
+### secret.yaml
+
+```yaml
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: db-secret
+    type: Opaque
+    data:
+      url: MTkyLjE2OC4wLjEx
+      username: cm9vdA==
+      password: emFxMTJ3c3g=
+```
