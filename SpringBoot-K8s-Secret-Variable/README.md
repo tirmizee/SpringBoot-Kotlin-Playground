@@ -72,3 +72,14 @@ spec:
                   name: db-secret
                   key: password
 ```
+
+### application.yaml
+
+```yaml
+
+database:
+  url: ${DB_URL:default}
+  username: ${DB_USERNAME:default}
+  password: ${DB_PASSWORD:default}
+  
+```
