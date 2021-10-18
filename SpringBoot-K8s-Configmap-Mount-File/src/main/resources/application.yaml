@@ -1,0 +1,7 @@
+server:
+  port: 8080
+---
+database:
+  url: 192.168.0.xxx
+  username: ${DB_USERNAME:default}
+  password: ${DB_PASSWORD:default}
