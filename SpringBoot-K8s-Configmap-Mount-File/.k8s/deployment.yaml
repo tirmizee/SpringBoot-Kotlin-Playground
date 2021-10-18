@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-pod
+  template:
+    metadata:
+      labels:
+        app: spring-pod
+    spec:
+      containers:
+        - name: spring-pod
+          image: tirmizee/spring-configmap-mount:0.0.2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: spring-pod-configmap
