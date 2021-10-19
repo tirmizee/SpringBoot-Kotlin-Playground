@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-secret-mount-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-secret-mount-pod
+  template:
+    metadata:
+      labels:
+        app: spring-secret-mount-pod
+    spec:
+      containers:
+        - name: spring-secret-mount-pod
+          image: tirmizee/spring-secret-mount:0.0.1
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: secret-volume
+              readOnly: true
+              mountPath: "/config"
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: secret-data
