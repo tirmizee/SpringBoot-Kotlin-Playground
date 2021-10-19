@@ -1,4 +1,4 @@
-# SpringBoot-UseCase
+# SpringBoot-Kotlin
 
 Spring Boot Kotlin playground
 
