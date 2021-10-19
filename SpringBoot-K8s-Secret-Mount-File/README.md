@@ -4,3 +4,12 @@
 
 ### secret-data.yaml
 
+```yaml
+
+```
+
+### deployment.yaml
+
+```yaml
+
+```
