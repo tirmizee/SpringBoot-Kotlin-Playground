@@ -29,6 +29,14 @@ data:
   url: MTkyLjE2OC4wLjEx
   username: cm9vdA==
   password: emFxMTJ3c3g=
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret2
+type: Opaque
+data:
+  token: emFxMTJ3c3g=
   
 ```
 
@@ -52,10 +60,15 @@ spec:
     spec:
       containers:
         - name: spring-secre-container
-          image: tirmizee/spring-secret:0.0.1
+          image: tirmizee/spring-secret:0.0.2
           ports:
             - containerPort: 8080
+          envFrom:
+            # get secret all key
+            - secretRef:
+                name: db-secret2
           env:
+            # get secret by key
             - name: DB_URL
               valueFrom:
                 secretKeyRef:
@@ -71,6 +84,7 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: password
+
 ```
 
 ### application.yaml

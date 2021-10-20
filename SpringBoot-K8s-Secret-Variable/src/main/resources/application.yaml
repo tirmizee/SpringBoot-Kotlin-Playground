@@ -2,3 +2,4 @@ database:
   url: ${DB_URL:default}
   username: ${DB_USERNAME:default}
   password: ${DB_PASSWORD:default}
+token: {TOKEN:default}

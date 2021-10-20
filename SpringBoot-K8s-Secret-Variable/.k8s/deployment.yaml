@@ -14,10 +14,15 @@ spec:
     spec:
       containers:
         - name: spring-secre-container
-          image: tirmizee/spring-secret:0.0.1
+          image: tirmizee/spring-secret:0.0.2
           ports:
             - containerPort: 8080
+          envFrom:
+            # get secret all key
+            - secretRef:
+                name: db-secret2
           env:
+            # get secret by key
             - name: DB_URL
               valueFrom:
                 secretKeyRef:

@@ -14,6 +14,9 @@ class SpringBootK8sSecretVariableApplication : CommandLineRunner {
 	@Autowired
 	lateinit var env: Environment
 
+	@Value("\${token}")
+	lateinit var token: String
+
 	@Value("\${database.url}")
 	lateinit var url: String
 
@@ -25,6 +28,7 @@ class SpringBootK8sSecretVariableApplication : CommandLineRunner {
 
 	override fun run(vararg args: String?) {
 
+		println("token $token")
 		println("url $url")
 		println("username $username")
 		println("password $password")
