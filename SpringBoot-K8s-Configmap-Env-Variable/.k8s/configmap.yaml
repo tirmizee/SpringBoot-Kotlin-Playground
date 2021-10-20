@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-pod-comfigmap
+data:
+  POSTGRES_DB: product
+  POSTGRES_USER: product_robot
+  PGDATA: /var/lib/postgresql/data/pgdata
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-pod-comfigmap2
+data:
+  expire: "20"
+

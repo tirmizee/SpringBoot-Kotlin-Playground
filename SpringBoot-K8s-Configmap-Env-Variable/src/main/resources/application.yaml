@@ -1,0 +1,5 @@
+database:
+  postgres-db: ${POSTGRES_DB:default}
+  postgres-user: ${POSTGRES_USER:default}
+  pddata: ${PGDATA:default}
+  expire: ${EXPIRE:100}
