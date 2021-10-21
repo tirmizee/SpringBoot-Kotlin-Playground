@@ -1,4 +1,4 @@
-package com.tirmizee.SpringBootK8sVolumePVC
+package com.tirmizee
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
