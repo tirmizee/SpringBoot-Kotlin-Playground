@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-pod
+  template:
+    metadata:
+      labels:
+        app: spring-pod
+    spec:
+      containers:
+        - name: spring-pod
+          image: tirmizee/spring-deployment:0.0.2
+          ports:
+            - containerPort: 8080
+          env:
+            # tomcat or ant
+            - name: JAVA_OPTS
+              value: "-Xms256m -Xmx512m"
+            # linux or window
+            - name: _JAVA_OPTIONS
+              value: "-Xms256m -Xmx512m"

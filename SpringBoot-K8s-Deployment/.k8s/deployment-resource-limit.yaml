@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-pod
+  template:
+    metadata:
+      labels:
+        app: spring-pod
+    spec:
+      containers:
+        - name: spring-container
+          image: tirmizee/spring-deployment:0.0.2
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+#              memory: "128Mi"
+              cpu: "0.25"
+            limits:
+#              memory: "256Mi"
+              cpu: "0.50"
