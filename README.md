@@ -24,3 +24,4 @@ Spring Boot Kotlin playground
 - https://github.com/mednikoviurii/spring-reactive-examples(custom repository)
 - http://ohuyky.blogspot.com/2019/02/partial-update-with-spring-data.html
 - https://reflectoring.io/spring-boot-elasticsearch/
+- https://www.geekyhacker.com/2019/12/02/configure-spring-cloud-stream-with-two-kafka-brokers/
