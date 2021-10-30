@@ -25,3 +25,4 @@ Spring Boot Kotlin playground
 - http://ohuyky.blogspot.com/2019/02/partial-update-with-spring-data.html
 - https://reflectoring.io/spring-boot-elasticsearch/
 - https://www.geekyhacker.com/2019/12/02/configure-spring-cloud-stream-with-two-kafka-brokers/
+- https://betterprogramming.pub/kafka-docker-run-multiple-kafka-brokers-and-zookeeper-services-in-docker-3ab287056fd5 (kafka zoo cluster)
