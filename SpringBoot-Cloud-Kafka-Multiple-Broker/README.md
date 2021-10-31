@@ -8,12 +8,14 @@ spring:
   cloud:
     stream:
       binders:
+        # broker one
         kafka-broker-0:
           type: kafka
           environment.spring.cloud.stream.kafka.binder:
             brokers: localhost:9092
             zkNodes: localhost:2181
             autoAddPartitions: true
+         # broker one
         kafka-broker-1:
           type: kafka
           environment.spring.cloud.stream.kafka.binder:
