@@ -7,7 +7,7 @@ spring:
           type: kafka
           environment.spring.cloud.stream.kafka.binder:
             brokers: localhost:9092
-            zkNodes: localhost:2181
+            # zkNodes: localhost:2181 deprecated since 2.0
             autoAddPartitions: true
             autoCreateTopics: true
         # broker two
@@ -15,25 +15,25 @@ spring:
           type: kafka
           environment.spring.cloud.stream.kafka.binder:
             brokers: localhost:9093
-            zkNodes: localhost:2182
+            # zkNodes: localhost:2182 deprecated since 2.0
             autoAddPartitions: true
             autoCreateTopics: true
       bindings:
         customerConsumer0:
           binder: kafka-broker-0
           group: Customer.Group
-          destination: topic.customer
+          destination: topic.customer.0
         customerProducer0:
           binder: kafka-broker-0
-          destination: topic.customer
+          destination: topic.customer.0
           producer:
             configuration:
         customerConsumer1:
           binder: kafka-broker-1
           group: Customer.Group
-          destination: topic.customer
+          destination: topic.customer.1
         customerProducer1:
-          binder: kafka-broker-0
-          destination: topic.customer
+          binder: kafka-broker-1
+          destination: topic.customer.1
           producer:
             configuration:
