@@ -11,6 +11,6 @@ class SpringBootCloudKafkaMultipleBrokerApplication
 fun main(args: Array<String>) {
 	val application = runApplication<SpringBootCloudKafkaMultipleBrokerApplication>(*args)
 	val streamChannels = application.getBean(StreamChannels::class.java)
-	streamChannels.customerProducerBroker0().send(MessageBuilder.withPayload("hello world broker 0").build())
-	streamChannels.customerProducerBroker1().send(MessageBuilder.withPayload("hello world").build())
+	streamChannels.customerProducerBroker0().send(MessageBuilder.withPayload("hello world broker 1").build())
+	streamChannels.customerProducerBroker1().send(MessageBuilder.withPayload("hello world broker 2").build())
 }
