@@ -1,8 +1,8 @@
 ## SFTP Inbound Channel
 
 - <b>local-directory</b> ตำแหน่งที่จะโอนไฟล์ไปยัง local
-- remote-directory remote directory ต้นทางที่จะถ่ายโอนไฟล์ไปยัง local
-- session-factory remote connection ที่ตั้งค่าไว้(ip, port, user, pass)
+- <b>remote-directory</b> remote directory ต้นทางที่จะถ่ายโอนไฟล์ไปยัง local
+- <b>session-factory</b> remote connection ที่ตั้งค่าไว้(ip, port, user, pass)
 
 ### dependencies
 
