@@ -2,7 +2,7 @@
 
 - <b>local-directory</b> ตำแหน่งที่จะโอนไฟล์ไปยัง local
 - <b>remote-directory</b> remote directory ต้นทางที่จะถ่ายโอนไฟล์ไปยัง local
-- <b>session-factory</b> remote connection ที่ตั้งค่าไว้(ip, port, user, pass)
+- <b>session-factory</b> remote connection ที่ตั้งค่าไว้ (ip, port, user, pass)
 
 ### dependencies
 
