@@ -1,0 +1,9 @@
+version: '3'
+services:
+  sftp:
+    image: atmoz/sftp
+    ports:
+      - '2222:22'
+    volumes:
+      - /Users/pratya.yeekhaday/Desktop/volume:/home/user/remote
+    command: user:pass
