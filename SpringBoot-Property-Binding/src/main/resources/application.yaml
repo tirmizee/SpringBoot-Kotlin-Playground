@@ -30,13 +30,13 @@ web-client:
     gateway-dev:
       url: https://gateway.dev
       headers:
-        x-api-key: zaq12wsdkmkwelfml22
+        x-api-key: zaq12wsdkmkwelf
         x-source: dev
         x-destination: dev
     gateway-uat:
       url: https://gateway.uat
       headers:
-        x-api-key: zaq12wsdkmkwelfml22lm3333
+        x-api-key: zaq12wsdkmkwelfm
         x-source: uat
         x-destination: uat
   endpoint:
