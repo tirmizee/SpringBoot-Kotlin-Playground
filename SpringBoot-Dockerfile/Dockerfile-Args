@@ -1,0 +1,15 @@
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+ARG LOCATION_JAR_FILE=./build/libs/*.jar
+ARG CONTAINER_JAR_FILE=app.jar
+
+WORKDIR /opt/app
+
+COPY ${LOCATION_JAR_FILE} $CONTAINER_JAR_FILE
+
+EXPOSE 8080
+
+RUN echo $LOCATION_JAR_FILE > arg.txt
+RUN echo ${CONTAINER_JAR_FILE} > arg2.txt
+
+ENTRYPOINT ["java","-jar","app.jar"]

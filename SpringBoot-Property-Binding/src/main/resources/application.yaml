@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  address: 127.0.0.1
+  compression:
+    enabled: true
+    mime-types:
+      - text/html
+      - text/plain
+    min-response-size: 2KB
+  config:
+    ips:
+      - 10.10.10.10
+      - 10.10.10.11
+      - 10.10.10.12
+      - 10.10.10.13
+    filesystem:
+      - /dev/root
+      - /dev/md2
+      - /dev/md4
+  user:
+    root:
+      username: root
+      password: rootpass
+    guest:
+      username: guest
+      password: guestpass
+---
+web-client:
+  gateway:
+    gateway-dev:
+      url: https://gateway.dev
+      headers:
+        x-api-key: zaq12wsdkmkwelfml22
+        x-source: dev
+        x-destination: dev
+    gateway-uat:
+      url: https://gateway.uat
+      headers:
+        x-api-key: zaq12wsdkmkwelfml22lm3333
+        x-source: uat
+        x-destination: uat
+  endpoint:
+    get-profile:
+      gateway: gateway-dev
+      path: /v1/user/profile
+      headers: {}
+    inquiry:
+      gateway: gateway-uat
+      path: /v1/inquiry
+      headers: {}
+
+
+
