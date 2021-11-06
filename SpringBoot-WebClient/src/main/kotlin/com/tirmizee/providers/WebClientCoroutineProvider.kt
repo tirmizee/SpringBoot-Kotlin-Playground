@@ -2,11 +2,14 @@ package com.tirmizee.providers
 
 import com.tirmizee.extensions.typeReference
 import com.tirmizee.properties.WebClientProperty
+import com.tirmizee.providers.models.CreateProductRequest
+import com.tirmizee.providers.models.CreateProductResponse
 import com.tirmizee.providers.models.GetProductResponse
 import kotlinx.coroutines.reactive.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 
@@ -26,9 +29,7 @@ class WebClientCoroutineProvider (
                 .awaitSingle()
         }.onSuccess { response ->
             response
-        }.onFailure {
-            null
-        }
+        }.onFailure {}
 
     suspend fun listProduct(): Result<List<GetProductResponse?>?> =
         webClient.runCatching {
@@ -40,8 +41,20 @@ class WebClientCoroutineProvider (
                 .awaitSingle()
         }.onSuccess { response ->
             response
-        }.onFailure {
-            null
-        }
+        }.onFailure {}
+
+    suspend fun createProduct(createProductRequest: CreateProductRequest): Result<CreateProductResponse?> =
+        webClient.runCatching {
+            this.post()
+                .uri(webClientProperty.createProductUri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers{ webClientProperty.headers }
+                .bodyValue(createProductRequest)
+                .retrieve()
+                .bodyToMono(CreateProductResponse::class.java)
+                .awaitSingle()
+        }.onSuccess { response ->
+            response
+        }.onFailure {}
 
 }

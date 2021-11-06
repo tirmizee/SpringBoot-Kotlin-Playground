@@ -2,6 +2,7 @@ package com.tirmizee
 
 import com.tirmizee.providers.WebClientCoroutineProvider
 import com.tirmizee.providers.WebClientFluxProvider
+import com.tirmizee.providers.models.CreateProductRequest
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
@@ -17,14 +18,27 @@ fun main(args: Array<String>) {
 	val webClientCoroutine = application.getBean(WebClientCoroutineProvider::class.java)
 
 	val product = webClientFlux.getProduct(12)
-	val products = webClientFlux.listProduct()
 	println(product.getOrNull())
+
+	val products = webClientFlux.listProduct()
 	println(products.getOrNull())
 
+	val createProductRequest = CreateProductRequest(11,"IOS",true)
+	val createProductResponse = webClientFlux.createProduct(createProductRequest)
+	println(createProductResponse)
+
 	runBlocking {
+
 		val product = webClientCoroutine.getProduct(12)
-		val products = webClientCoroutine.listProduct()
 		println(product.getOrNull())
+
+		val products = webClientCoroutine.listProduct()
 		println(products.getOrNull())
+
+		val createProductRequest = CreateProductRequest(11,"IOS",true)
+		val createProductResponse = webClientCoroutine.createProduct(createProductRequest)
+		println(createProductResponse)
+
 	}
+
 }
