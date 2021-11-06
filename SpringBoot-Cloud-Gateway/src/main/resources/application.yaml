@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: customer-service
+          uri: http://0.0.0.0:6060
+          predicates:
+            - Path=/customer-service/**
+          filters:
+            - RewritePath=/customer-service/(?<segment>.*), /customer-service/$\{segment}
+        - id: product-service
+          uri: http://0.0.0.0:7070
+          predicates:
+            - Path=/product-service/**
+          filters:
+            - RewritePath=/product-service/(?<segment>.*), /$\{segment}
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+# http://0.0.0.0:8080/actuator/gateway/routes
+# http://0.0.0.0:8080/actuator/gateway/routes/{id}

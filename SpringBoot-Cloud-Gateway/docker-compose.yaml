@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  smocker-1:
+    container_name: smocker-1
+    image: thiht/smocker
+    ports:
+      - '6060:8080'
+      - '6061:8081'
+  smocker-2:
+    container_name: smocker-2
+    image: thiht/smocker
+    ports:
+      - '7070:8080'
+      - '7071:8081'

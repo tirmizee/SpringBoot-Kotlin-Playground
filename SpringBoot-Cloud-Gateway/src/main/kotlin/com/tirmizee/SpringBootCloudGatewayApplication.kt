@@ -1,4 +1,4 @@
-package com.tirmizee.SpringBootCloudGateway
+package com.tirmizee
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
