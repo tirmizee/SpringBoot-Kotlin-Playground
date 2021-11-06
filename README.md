@@ -4,8 +4,8 @@ Spring Boot Kotlin playground
 
 ### Examples
 
--  Read or download files from an SFTP Server.
-- 
+- Dockerfile for Spring application.
+- Read or download files from an SFTP Server.
 - 
 - 
 - 
