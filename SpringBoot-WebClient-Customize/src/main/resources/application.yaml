@@ -1,0 +1,9 @@
+web-client:
+  base-url: http://0.0.0.0:6060
+  headers:
+    x-key: "CDERF"
+    X-code: "5505"
+  create-product-uri: /product
+  create-product-url: ${base-url}/product
+
+

@@ -23,6 +23,7 @@ class WebClientFluxProvider(
         webClient.runCatching {
             this.get()
                 .uri(webClientProperty.getProductUri.replace("{id}", id.toString()))
+                .accept(MediaType.APPLICATION_JSON)
                 .headers{ webClientProperty.headers }
                 .retrieve()
                 .bodyToMono(GetProductResponse::class.java)
@@ -35,6 +36,7 @@ class WebClientFluxProvider(
         webClient.runCatching {
             this.get()
                 .uri(webClientProperty.allProductUri)
+                .accept(MediaType.APPLICATION_JSON)
                 .headers{ webClientProperty.headers }
                 .retrieve()
                 .bodyToMono(typeReference<List<GetProductResponse>>())
@@ -48,6 +50,7 @@ class WebClientFluxProvider(
             this.post()
                 .uri(webClientProperty.createProductUri)
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .headers{ webClientProperty.headers }
                 .bodyValue(createProductRequest)
                 .retrieve()

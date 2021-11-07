@@ -16,6 +16,7 @@ inline fun <reified T> typeReference() = object : ParameterizedTypeReference<T>(
 inline fun <reified T: Any>WebClient.get(uri: URI, headers: MultiValueMap<*,*> = HttpHeaders()) : T? =
     this.get()
         .uri(uri)
+        .accept(MediaType.APPLICATION_JSON)
         .headers { headers }
         .retrieve()
         .bodyToMono(T::class.java)
@@ -25,6 +26,7 @@ inline fun <reified T: Any>WebClient.post(uri: URI, headers: MultiValueMap<*,*> 
     this.post()
         .uri(uri)
         .headers { headers }
+        .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToMono(T::class.java)
@@ -34,6 +36,7 @@ inline fun <reified S: Any, reified T: Any>WebClient.post(uri: URI, request: S, 
     this.post()
         .uri(uri)
         .headers { headers }
+        .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(request)
         .retrieve()
