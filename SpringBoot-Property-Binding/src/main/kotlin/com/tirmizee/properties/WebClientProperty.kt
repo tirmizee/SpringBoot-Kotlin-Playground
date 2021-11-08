@@ -2,6 +2,8 @@ package com.tirmizee.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.http.HttpHeaders
+import org.springframework.util.MultiValueMap
 
 @ConstructorBinding
 @ConfigurationProperties(prefix = "web-client")
@@ -12,7 +14,7 @@ data class WebClientProperty (
 
     data class GatewayProperty(
         val url: String,
-        val headers: Map<String, String>
+        val headers: HttpHeaders = HttpHeaders.EMPTY
     )
 
     data class EndpointProperty(
@@ -23,7 +25,7 @@ data class WebClientProperty (
     data class EndpointDetailProperty(
         val path: String,
         val gateway: String,
-        val headers: Map<String, String>
+        val headers: HttpHeaders = HttpHeaders.EMPTY
     )
 
 }
