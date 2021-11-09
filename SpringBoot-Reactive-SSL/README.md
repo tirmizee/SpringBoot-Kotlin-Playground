@@ -15,3 +15,18 @@
 
     # der format
     keytool -export -alias server -keystore server.jks -storepass storepass -file certificate.der
+
+### application.yaml
+
+```yaml
+
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore/server.jks
+    key-store-password: storepass
+    key-password: keypass
+    key-alias: server
+    key-store-type: JKS
+
+```
