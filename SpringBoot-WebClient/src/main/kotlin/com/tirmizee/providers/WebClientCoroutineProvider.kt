@@ -37,7 +37,6 @@ class WebClientCoroutineProvider (
             }.onFailure {}
         }
 
-
     suspend fun listProduct(): Result<List<GetProductResponse?>?> =
         withContext(Dispatchers.IO) {
             webClient.runCatching {
@@ -52,7 +51,6 @@ class WebClientCoroutineProvider (
                 response
             }.onFailure {}
         }
-
 
     suspend fun createProduct(createProductRequest: CreateProductRequest): Result<CreateProductResponse?> =
         withContext(Dispatchers.IO) {
@@ -70,6 +68,5 @@ class WebClientCoroutineProvider (
                 response
             }.onFailure {}
         }
-
 
 }
