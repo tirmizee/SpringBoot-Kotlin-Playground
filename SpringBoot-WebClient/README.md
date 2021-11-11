@@ -80,16 +80,20 @@ web-client:
 
     // coroutine
     suspend fun getProduct(id: Int): Result<GetProductResponse?> =
-        webClient.runCatching {
-            this.get()
-                .uri(webClientProperty.getProductUri.replace("{id}", id.toString()))
-                .headers{ webClientProperty.headers }
-                .retrieve()
-                .bodyToMono(GetProductResponse::class.java)
-                .awaitSingle()
-        }.onSuccess { response ->
-            response
-        }.onFailure {}
+        withContext(Dispatchers.IO) {
+            webClient.runCatching {
+                this.get()
+                    .uri(webClientProperty.getProductUri.replace("{id}", id.toString()))
+                    .accept(MediaType.APPLICATION_JSON)
+                    .headers{ webClientProperty.headers }
+                    .retrieve()
+                    .bodyToMono(GetProductResponse::class.java)
+                    .awaitSingle()
+            }.onSuccess { response ->
+                response
+            }.onFailure {}
+        }
+
     
 
 ```
@@ -115,18 +119,21 @@ web-client:
 
     // coroutine
     suspend fun createProduct(createProductRequest: CreateProductRequest): Result<CreateProductResponse?> =
-        webClient.runCatching {
-            this.post()
-                .uri(webClientProperty.createProductUri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .headers{ webClientProperty.headers }
-                .bodyValue(createProductRequest)
-                .retrieve()
-                .bodyToMono(CreateProductResponse::class.java)
-                .awaitSingle()
-        }.onSuccess { response ->
-            response
-        }.onFailure {}
+        withContext(Dispatchers.IO) {
+            webClient.runCatching {
+                this.post()
+                    .uri(webClientProperty.createProductUri)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .headers{ webClientProperty.headers }
+                    .bodyValue(createProductRequest)
+                    .retrieve()
+                    .bodyToMono(CreateProductResponse::class.java)
+                    .awaitSingle()
+            }.onSuccess { response ->
+                response
+            }.onFailure {}
+        }
 
 ```
 
