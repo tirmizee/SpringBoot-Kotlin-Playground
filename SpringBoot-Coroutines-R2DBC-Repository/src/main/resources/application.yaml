@@ -1,6 +1,0 @@
-spring:
-  r2dbc:
-    initialization-mode: always
-    url: r2dbc:postgresql://localhost/test
-    username: user
-    password: password
