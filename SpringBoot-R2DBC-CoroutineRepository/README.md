@@ -81,6 +81,41 @@ interface UserRepository : CoroutineSortingRepository<UserEntity, Long>, CustomU
 
 ```
 
+### Custom CoroutineRepository
+
+```kotlin
+
+@Repository
+class CustomUserRepositoryImpl(val r2dbcEntityTemplate: R2dbcEntityTemplate): CustomUserRepository {
+
+    override suspend fun getVersion() = "1"
+
+    override suspend fun updatePasswordByUsername(username: String, password: String): Int? =
+        r2dbcEntityTemplate.runCatching {
+            this.update(UserEntity::class.java)
+                .matching(query(where("username").`is`(username)))
+                .apply(
+                    Update.update("password", password)
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+//                        .set("column_name","value")
+                )
+                .awaitSingle()
+        }
+        .onSuccess { updated -> updated }
+        .onFailure { exception ->  println(exception) }
+        .getOrNull()
+
+}
+
+```
+
 ### Demo
 
 ```kotlin
@@ -154,6 +189,20 @@ fun `test update user`(): Unit = runBlocking {
 
     // then
     assertThat(persist?.password).isEqualTo(user?.password)
+}
+
+@Test
+fun `test update password when user not found`(): Unit = runBlocking {
+
+    // given
+    val username = "no_user"
+    val password = "new_password"
+
+    // when
+    val updatedCount = userRepository.updatePasswordByUsername(username, password)
+
+    // then
+    assertThat(updatedCount).isEqualTo(0)
 }
 
 ```
