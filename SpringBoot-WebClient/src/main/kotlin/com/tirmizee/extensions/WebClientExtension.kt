@@ -1,6 +1,6 @@
 package com.tirmizee.extensions
 
-import jdk.internal.net.http.common.Log.logHeaders
+import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
