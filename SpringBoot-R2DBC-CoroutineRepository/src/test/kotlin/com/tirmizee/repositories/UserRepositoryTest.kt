@@ -86,4 +86,18 @@ class UserRepositoryTest @Autowired constructor(
         assertThat(persist?.password).isEqualTo(user?.password)
     }
 
+    @Test
+    fun `test update password when user not found`(): Unit = runBlocking {
+
+        // given
+        val username = "no_user"
+        val password = "new_password"
+
+        // when
+        val updatedCount = userRepository.updatePasswordByUsername(username, password)
+
+        // then
+        assertThat(updatedCount).isEqualTo(0)
+    }
+
 }

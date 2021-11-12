@@ -28,4 +28,7 @@ class DatabaseConfig(
         return initializer
     }
 
+    @Bean
+    fun r2dbcEntityTemplate(@Qualifier("connectionFactory") connectionFactory: ConnectionFactory)=
+        R2dbcEntityTemplate(connectionFactory)
 }
