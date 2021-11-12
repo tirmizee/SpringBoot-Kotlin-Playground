@@ -6,3 +6,12 @@ CREATE TABLE users (
 	password VARCHAR ( 50 ) NOT NULL,
 	created_on TIMESTAMP NOT NULL
 );
+
+DROP TABLE IF EXISTS branch;
+CREATE TABLE branch (
+	branch_id serial PRIMARY KEY,
+	bank_code VARCHAR ( 50 )  NOT NULL,
+	branch_code VARCHAR ( 50 ) NOT NULL,
+    branch_name VARCHAR ( 250 ),
+	created_on TIMESTAMP NOT NULL
+);

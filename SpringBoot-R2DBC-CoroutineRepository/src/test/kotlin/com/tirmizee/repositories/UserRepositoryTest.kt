@@ -1,7 +1,6 @@
 package com.tirmizee.repositories
 
-import com.tirmizee.entities.UserEntity
-import kotlinx.coroutines.flow.collect
+import com.tirmizee.repositories.entities.UserEntity
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
