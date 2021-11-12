@@ -113,6 +113,24 @@ interface UserRepository : CoroutineSortingRepository<UserEntity, Long>, CustomU
 
 }
 
+interface BranchRepository: CoroutineSortingRepository<BranchEntity, Long>, CustomBranchRepository {
+
+    @Query(""" 
+        SELECT 
+            bank_code,
+            branch_code,
+            branch_name
+        FROM branch 
+        WHERE bank_code = :bankCode
+    """)
+    suspend fun findByBankCode(bankCode: String): BranchEntity?
+
+    @Modifying
+    @Query("UPDATE branch SET branch_name = :branchName where branch_code = :branchCode")
+    suspend fun updateBranchName(branchCode: String, branchName: String?): Int?
+
+}
+
 ```
 
 ### Custom CoroutineRepository
@@ -130,12 +148,6 @@ class CustomUserRepositoryImpl(val r2dbcEntityTemplate: R2dbcEntityTemplate): Cu
                 .matching(query(where("username").`is`(username)))
                 .apply(
                     Update.update("password", password)
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
 //                        .set("column_name","value")
 //                        .set("column_name","value")
 //                        .set("column_name","value")

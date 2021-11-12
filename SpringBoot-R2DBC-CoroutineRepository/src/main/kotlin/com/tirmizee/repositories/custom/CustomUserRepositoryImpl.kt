@@ -24,12 +24,6 @@ class CustomUserRepositoryImpl(val r2dbcEntityTemplate: R2dbcEntityTemplate): Cu
 //                        .set("column_name","value")
 //                        .set("column_name","value")
 //                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
-//                        .set("column_name","value")
                 )
                 .awaitSingle()
         }
