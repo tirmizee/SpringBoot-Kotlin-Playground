@@ -1,0 +1,13 @@
+server:
+  port: 8081
+  ssl:
+    enabled: false
+    trust-store: store/truststore.jks
+    trust-store-pem: store/certificate.pem
+    trust-store-password: storepass
+    trust-store-type: JKS
+webclient:
+  ping: https://privatedomain:8443/ping
+  payment: https://privatedomain:8443/payment
+
+
