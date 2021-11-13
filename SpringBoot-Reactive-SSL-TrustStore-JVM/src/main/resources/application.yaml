@@ -1,0 +1,8 @@
+server:
+  port: 8081
+  ssl:
+    enabled: false
+webclient:
+  ping: https://privatedomain:8443/ping
+  payment: https://privatedomain:8443/payment
+
