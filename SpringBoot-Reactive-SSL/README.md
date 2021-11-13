@@ -1,6 +1,6 @@
 ### Generate key with keytool
 
-    keytool -genkey -alias server -keyalg RSA -keysize 2048 -keystore server.jks -storetype JKS -storepass storepass -keypass keypass -dname "CN=192.168.1.100,OU=test, O=test, L=test, ST=test, C=TH"
+    keytool -genkeypair -alias server -keyalg RSA -keysize 2048 -keystore server.jks -storetype JKS -storepass storepass -keypass keypass -dname "CN=privatedomain,OU=test, O=test, L=test, ST=test, C=TH" 
 
 ### Lists entries in a keystore
 
