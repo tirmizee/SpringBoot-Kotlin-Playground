@@ -24,4 +24,16 @@
 
     keytool -keystore truststore.jks -storepass storepass -list
 
-    -Djavax.net.ssl.trustStore=/Users/pratya.yeekhaday/Desktop/SpringBoot-Kotlin-Playground/SpringBoot-Reactive-SSL-TrustStore/src/main/resources/store/truststore.jks -Djavax.net.ssl.trustStorePassword=storepass -Djavax.net.ssl.trustStoreType=JKS
+### 2.5 Configuration
+
+```kotlin
+
+@Bean(name = ["webClient"])
+fun webClient() : WebClient {
+    System.setProperty("javax.net.ssl.trustStore", "/Users/pratya.yeekhaday/Desktop/SpringBoot-Kotlin-Playground/SpringBoot-Reactive-SSL-TrustStore-JVM/src/main/resources/store/truststore.jks")
+    System.setProperty("javax.net.ssl.trustStorePassword", "storepass")
+    System.setProperty("javax.net.ssl.trustStoreType", "JKS")
+    return WebClient.builder().build()
+}
+
+```
