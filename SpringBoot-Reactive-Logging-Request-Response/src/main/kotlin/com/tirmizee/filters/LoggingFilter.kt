@@ -18,7 +18,6 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.nio.charset.StandardCharsets
 
-
 @Order(2)
 @Component
 class LoggingFilter : WebFilter {
@@ -42,14 +41,21 @@ class LoggingFilter : WebFilter {
 
 }
 
-class RequestResponseExchange(exchange: ServerWebExchange, private val requestId: String, private val time: Long): ServerWebExchangeDecorator(exchange) {
+class RequestResponseExchange(
+    exchange: ServerWebExchange,
+    private val requestId: String,
+    private val time: Long
+): ServerWebExchangeDecorator(exchange) {
 
     override fun getRequest(): ServerHttpRequest = RequestLoggingDecorator(super.getRequest(), requestId)
     override fun getResponse(): ServerHttpResponse = ResponseLoggingDecorator(super.getResponse(), requestId, time)
 
 }
 
-class RequestLoggingDecorator(delegate: ServerHttpRequest, private val requestId: String) : ServerHttpRequestDecorator(delegate) {
+class RequestLoggingDecorator(
+    delegate: ServerHttpRequest,
+    private val requestId: String
+) : ServerHttpRequestDecorator(delegate) {
 
     override fun getBody(): Flux<DataBuffer> =
         super.getBody().doOnNext{ buffer ->
@@ -59,7 +65,11 @@ class RequestLoggingDecorator(delegate: ServerHttpRequest, private val requestId
 
 }
 
-class ResponseLoggingDecorator(delegate: ServerHttpResponse, private val requestId: String, private val time: Long) : ServerHttpResponseDecorator(delegate) {
+class ResponseLoggingDecorator(
+    delegate: ServerHttpResponse,
+    private val requestId: String,
+    private val time: Long
+) : ServerHttpResponseDecorator(delegate) {
 
     override fun writeWith(body: Publisher<out DataBuffer>): Mono<Void> {
         val buffer = Flux.from(body).doOnNext { dataBuffer ->
