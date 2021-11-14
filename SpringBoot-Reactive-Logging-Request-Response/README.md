@@ -1,23 +1,24 @@
-package com.tirmizee.filters
 
-import org.reactivestreams.Publisher
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.core.annotation.Order
-import org.springframework.core.io.buffer.DataBuffer
-import org.springframework.http.server.reactive.ServerHttpRequest
-import org.springframework.http.server.reactive.ServerHttpRequestDecorator
-import org.springframework.http.server.reactive.ServerHttpResponse
-import org.springframework.http.server.reactive.ServerHttpResponseDecorator
-import org.springframework.stereotype.Component
-import org.springframework.web.server.ServerWebExchange
-import org.springframework.web.server.ServerWebExchangeDecorator
-import org.springframework.web.server.WebFilter
-import org.springframework.web.server.WebFilterChain
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-import java.nio.charset.StandardCharsets
+### Filter order 1
 
+```kotlin
+
+@Order(1)
+@Component
+class UniqueFilter: WebFilter {
+
+    override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
+        exchange.attributes["requestId"] = UUID.randomUUID().toString()
+        return chain.filter(exchange)
+    }
+
+}
+
+```
+
+### Filter logging order 2
+
+```kotlin
 
 @Order(2)
 @Component
@@ -71,3 +72,14 @@ class ResponseLoggingDecorator(delegate: ServerHttpResponse, private val request
 
 }
 
+```
+
+### Demo with CURL
+
+    curl -XGET -H "Content-type: application/json" 'http://localhost:8080/api/ping'
+    curl -XPOST -H "Content-type: application/json" -d '{ "paymentId" : "2222222","paymentAmount" : 33333 }' 'http://localhost:8080/api/payment'
+
+    2021-11-14 23:02:31.104  INFO 60181 --- [ctor-http-nio-2] com.tirmizee.filters.CleanLoggingFilter  : Request b0a5be22-973f-47ad-bed9-ae4edc592a88 : method=GET, uri=/api/ping, payload=
+    2021-11-14 23:02:31.123  INFO 60181 --- [ctor-http-nio-2] com.tirmizee.filters.CleanLoggingFilter  : Response b0a5be22-973f-47ad-bed9-ae4edc592a88 : status=200 OK, method=GET, uri=/api/ping, time=132, payload={"statusCode":"0000","statusDesc":"SUCCESS"}
+    2021-11-14 23:02:43.232  INFO 60181 --- [ctor-http-nio-3] com.tirmizee.filters.CleanLoggingFilter  : Request e385c92d-43be-420a-afa0-371deb69a3e2 : method=POST, uri=/api/payment, payload={ "paymentId" : "2222222","paymentAmount" : 33333 }
+    2021-11-14 23:02:43.232  INFO 60181 --- [ctor-http-nio-3] com.tirmizee.filters.CleanLoggingFilter  : Response e385c92d-43be-420a-afa0-371deb69a3e2 : status=200 OK, method=POST, uri=/api/payment, time=80, payload={"statusCode":"0000","statusDesc":"SUCCESS"} 
