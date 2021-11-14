@@ -66,7 +66,7 @@ class WebClientConfig(
     private fun x509Certificate(): X509Certificate {
         val certificateFactory = CertificateFactory.getInstance("X.509")
         val x509File = ClassPathResource(serverProperty.trustStorePem).inputStream
-        return certificateFactory.generateCertificate(x509File) as X509Certificate
+        return (certificateFactory.generateCertificate(x509File) as X509Certificate)
     }
 
     private fun x509InputStream(): InputStream =
