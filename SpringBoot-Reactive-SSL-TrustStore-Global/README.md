@@ -28,12 +28,16 @@
 
 ```kotlin
 
-@Bean(name = ["webClient"])
-fun webClient() : WebClient {
-    System.setProperty("javax.net.ssl.trustStore", "/Users/pratya.yeekhaday/Desktop/SpringBoot-Kotlin-Playground/SpringBoot-Reactive-SSL-TrustStore-JVM/src/main/resources/store/truststore.jks")
-    System.setProperty("javax.net.ssl.trustStorePassword", "storepass")
-    System.setProperty("javax.net.ssl.trustStoreType", "JKS")
-    return WebClient.builder().build()
+@Configuration
+class TruststoreConfig {
+
+    @PostConstruct
+    fun truststore() {
+        System.setProperty("javax.net.ssl.trustStore", "/Users/pratya.yeekhaday/Desktop/SpringBoot-Kotlin-Playground/SpringBoot-Reactive-SSL-TrustStore-Global/src/main/resources/store/truststore.jks")
+        System.setProperty("javax.net.ssl.trustStorePassword", "storepass")
+        System.setProperty("javax.net.ssl.trustStoreType", "JKS")
+    }
+
 }
 
 ```

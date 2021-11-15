@@ -17,10 +17,8 @@ class SpringBootReactiveSslTrustStoreApplication
 fun main(args: Array<String>) {
 	val app = runApplication<SpringBootReactiveSslTrustStoreApplication>(*args)
 	val clientService = app.getBean(ClientService::class.java)
-
 	runBlocking {
 		val pingResponse = clientService.ping()
 		println(pingResponse)
 	}
-
 }
