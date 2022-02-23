@@ -1,5 +1,5 @@
 
-- Lower values have higher priority
+- Lower values have higher priority (ค่าที่ต่ำกว่ามีลำดับความสำคัญสูงกว่า)
 
 ### Demo
 
