@@ -1,6 +1,21 @@
-### filter
+package com.tirmizee.filters
 
-```kotlin 
+import com.tirmizee.utils.AESUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.core.io.buffer.DataBuffer
+import org.springframework.core.io.buffer.DefaultDataBufferFactory
+import org.springframework.http.server.reactive.ServerHttpRequest
+import org.springframework.http.server.reactive.ServerHttpRequestDecorator
+import org.springframework.stereotype.Component
+import org.springframework.web.server.ServerWebExchange
+import org.springframework.web.server.ServerWebExchangeDecorator
+import org.springframework.web.server.WebFilter
+import org.springframework.web.server.WebFilterChain
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import java.nio.ByteBuffer
+import java.nio.charset.StandardCharsets
 
 @Component
 class DecryptRequestFilter : WebFilter {
@@ -32,10 +47,3 @@ class DecryptRequestFilter : WebFilter {
     }
 
 }
-
-```
-
-### Demo
-
-    curl -XPOST -H "Content-type: application/json" -d '9KMaVQa+bS+smEc5NWtn4Cfkjpa6GT6rhmdMwYHgt3s=' 'http://localhost:8080/api/hello'
-    hello revise%                                                   
