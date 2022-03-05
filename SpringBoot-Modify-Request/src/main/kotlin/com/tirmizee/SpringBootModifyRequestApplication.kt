@@ -1,4 +1,4 @@
-package com.tirmizee.SpringBootModifyRequest
+package com.tirmizee
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
