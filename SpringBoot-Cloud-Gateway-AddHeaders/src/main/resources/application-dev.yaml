@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/service-b/**
+          filters:
+            - RewritePath=/service-b/(?<segment>.*), /service-b/$\{segment}
+            - AddRequestHeader=X-Custom-Owner, Tirmizee
