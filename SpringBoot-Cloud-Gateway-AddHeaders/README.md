@@ -2,7 +2,7 @@
 
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 
-### application.yaml
+### application.yaml 
 
 ``` yaml
 
