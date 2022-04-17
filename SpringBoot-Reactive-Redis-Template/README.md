@@ -1,1 +1,1 @@
-# SpringBoot-Reactive-Data-Redis-Example
+# SpringBoot-Reactive-Redis-Template
