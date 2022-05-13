@@ -1,35 +1,3 @@
-# SpringBoot-K8s-Ingress
-
-### service path
-
-```java
-
-@RestController
-class HelloController {
-
-    @GetMapping("/")
-    suspend fun main(): String? {
-        return "path /"
-    }
-
-    @GetMapping("/members")
-    suspend fun members(): String? {
-        return "path /members"
-    }
-
-    @GetMapping("/members/{member}")
-    suspend fun membersBy(@PathVariable member: String): String? {
-        return "path /members/$member"
-    }
-
-}
-
-```
-
-### deployment.yaml
-
-```yaml
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -129,16 +97,3 @@ spec:
                 name: spring-ingress-service-2
                 port:
                   number: 80
-
-```
-
-### cmd 
-
-    kubectl apply -f ./.k8s/deployment.yaml
-
-    minikube ssh  
-
-    curl hello-world.info/service-1/members
-
-     curl hello-world.info/service-2/members
-
