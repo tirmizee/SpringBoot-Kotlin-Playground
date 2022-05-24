@@ -3,7 +3,6 @@ package com.tirmizee.properties
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.http.HttpHeaders
-import org.springframework.util.MultiValueMap
 
 @ConstructorBinding
 @ConfigurationProperties(prefix = "web-client")
