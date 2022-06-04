@@ -5,7 +5,10 @@ Spring Boot Kotlin playground
 ### Examples
 
 - Dockerfile for Spring application.
+- K8s Pod for Spring application.
 - K8s Deployment for Spring application.
+- K8s Service for Spring application.
+- K8s Configmap for Spring application.
 - Read or download files from an SFTP Server.
 - 
 - 
