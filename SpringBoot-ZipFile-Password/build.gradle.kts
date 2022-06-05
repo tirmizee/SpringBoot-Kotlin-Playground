@@ -16,6 +16,9 @@ repositories {
 }
 
 dependencies {
+
+	implementation("net.lingala.zip4j:zip4j:2.10.0")
+
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
