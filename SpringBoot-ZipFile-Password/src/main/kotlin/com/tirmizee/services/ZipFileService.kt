@@ -19,7 +19,6 @@ class ZipFileService {
         zipParameters.compressionMethod = CompressionMethod.DEFLATE
         zipParameters.compressionLevel = CompressionLevel.NORMAL
         zipParameters.fileNameInZip = "hello.txt"
-
         zipParameters.isEncryptFiles = true
         zipParameters.encryptionMethod = EncryptionMethod.AES
         zipParameters.aesKeyStrength = AesKeyStrength.KEY_STRENGTH_256
