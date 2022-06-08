@@ -9,16 +9,17 @@ import net.lingala.zip4j.model.enums.EncryptionMethod
 import org.springframework.stereotype.Service
 import java.io.ByteArrayOutputStream
 
-
 @Service
 class ZipFileService {
 
     suspend fun generateZipBytes() : ByteArray {
 
+        val filename = "hello.txt"
+
         val zipParameters = ZipParameters()
         zipParameters.compressionMethod = CompressionMethod.DEFLATE
         zipParameters.compressionLevel = CompressionLevel.NORMAL
-        zipParameters.fileNameInZip = "hello.txt"
+        zipParameters.fileNameInZip = filename
         zipParameters.isEncryptFiles = true
         zipParameters.encryptionMethod = EncryptionMethod.AES
         zipParameters.aesKeyStrength = AesKeyStrength.KEY_STRENGTH_256
@@ -26,7 +27,7 @@ class ZipFileService {
         val byteOutputStream = ByteArrayOutputStream()
         val zipOutputStream = ZipOutputStream(byteOutputStream, "password".toCharArray())
         zipOutputStream.putNextEntry(zipParameters)
-        zipOutputStream.write(fileContentBytes())
+        zipOutputStream.write(textFileContentBytes())
         zipOutputStream.flush()
         zipOutputStream.closeEntry()
         zipOutputStream.close()
@@ -34,8 +35,11 @@ class ZipFileService {
         return byteOutputStream.toByteArray()
     }
 
-    private fun fileContentBytes() =
+    private fun textFileContentBytes() =
         "hello world".toByteArray()
+
+    private fun csvFileContentBytes() =
+        "1,2,3,4,5,6".toByteArray()
 
 }
 
