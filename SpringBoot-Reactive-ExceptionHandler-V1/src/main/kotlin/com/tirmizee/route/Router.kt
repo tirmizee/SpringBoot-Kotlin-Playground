@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.server.coRouter
 class Router {
 
     @Bean
-    fun reconcile(handler: Handler) = coRouter {
+    fun exception(handler: Handler) = coRouter {
         accept(MediaType.APPLICATION_JSON).nest {
             "".nest {
                 GET("/v1", handler::exceptionV1)
