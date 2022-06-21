@@ -1,0 +1,9 @@
+message:
+  mapping:
+    errors:
+      HW2001: "Invalid request message"
+      HW2003: "error get customer data on redis"
+      HW2004: "error connect on boarding"
+      HW2005: "error produce kafka"
+      HW2006: "error connect nhso"
+      HW9999: "system error"
