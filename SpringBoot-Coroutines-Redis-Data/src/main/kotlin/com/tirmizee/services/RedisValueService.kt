@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.setAndAwait
 import org.springframework.stereotype.Service
 
 @Service
-class RedisService(
+class RedisValueService(
     var reactiveStringRedisTemplate: ReactiveStringRedisTemplate
 ) {
 

@@ -26,7 +26,10 @@ class RedisConfig {
             }
 
         val serializationContext =  newSerializationContext<String, Member>(StringRedisSerializer())
+            .key(StringRedisSerializer())
             .value(valueSerializer)
+            .hashKey(StringRedisSerializer())
+            .hashValue(valueSerializer)
             .build()
 
         return ReactiveRedisTemplate(connectionFactory, serializationContext)

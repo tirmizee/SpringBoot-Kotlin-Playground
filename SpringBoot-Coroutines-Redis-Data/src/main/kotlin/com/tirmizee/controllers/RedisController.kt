@@ -1,11 +1,11 @@
 package com.tirmizee.controllers
 
-import com.tirmizee.services.RedisService
+import com.tirmizee.services.RedisValueService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class RedisController(
-    val redisService: RedisService
+    val redisService: RedisValueService
 ) {
 
     @PostMapping("/redis/set/{key}")

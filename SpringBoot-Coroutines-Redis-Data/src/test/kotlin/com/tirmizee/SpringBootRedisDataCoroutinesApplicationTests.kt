@@ -1,7 +1,7 @@
 package com.tirmizee
 
 import com.tirmizee.models.Member
-import com.tirmizee.services.RedisService
+import com.tirmizee.services.RedisValueService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +19,7 @@ class SpringBootRedisDataCoroutinesApplicationTests {
 	lateinit var application: ApplicationContext
 
 	@Autowired
-	lateinit var redisService: RedisService
+	lateinit var redisService: RedisValueService
 
 	@Autowired
 	lateinit var reactiveRedisTemplate: ReactiveRedisTemplate<String, String>
