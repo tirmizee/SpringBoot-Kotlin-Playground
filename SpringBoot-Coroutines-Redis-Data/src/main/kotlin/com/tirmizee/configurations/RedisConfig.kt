@@ -28,8 +28,8 @@ class RedisConfig {
         val serializationContext =  newSerializationContext<String, Member>(StringRedisSerializer())
             .key(StringRedisSerializer())
             .value(valueSerializer)
-            .hashKey(StringRedisSerializer())
-            .hashValue(valueSerializer)
+            .hashKey(StringRedisSerializer()) // for HashOperations
+            .hashValue(valueSerializer)       // for HashOperations
             .build()
 
         return ReactiveRedisTemplate(connectionFactory, serializationContext)
