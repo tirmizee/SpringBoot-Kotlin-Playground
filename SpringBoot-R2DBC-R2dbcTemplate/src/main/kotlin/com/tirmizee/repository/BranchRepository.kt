@@ -18,7 +18,13 @@ class BranchRepository(
             .bind("branchId", branchId)
             .map { row, metadata -> converter.read(BranchEntity::class.java, row, metadata) }
             .awaitOneOrNull()
+    }
 
+    suspend fun getFirst(): BranchEntity? {
+        return r2dbcEntityTemplate.databaseClient
+            .sql("SELECT * FROM branch")
+            .map { row, metadata -> converter.read(BranchEntity::class.java, row, metadata) }
+            .awaitOneOrNull()
     }
 
 }

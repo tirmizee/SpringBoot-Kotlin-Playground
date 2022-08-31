@@ -19,8 +19,8 @@ class SpringBootR2DbcR2dbcTemplateApplication: CommandLineRunner {
 	override fun run(vararg args: String?) {
 		val branchRepository = applicationContext.getBean(BranchRepository::class.java)
 		runBlocking {
-			val branchEntity = branchRepository.findByBranchId(1)
-			println(branchEntity)
+			println(branchRepository.findByBranchId(1))
+			println(branchRepository.getFirst())
 		}
 	}
 
