@@ -1,0 +1,13 @@
+spring:
+  r2dbc:
+    url: "r2dbc:postgresql://0.0.0.0:5432/rainbow"
+    username: posttgresuser
+    password: posttgrespassword
+    pool:
+      max-size: 10
+      initial-size: 2
+      max-idle-time: 30m
+      validation-query: SELECT 1
+logging:
+  level:
+    org.springframework.data.r2dbc: TRACE

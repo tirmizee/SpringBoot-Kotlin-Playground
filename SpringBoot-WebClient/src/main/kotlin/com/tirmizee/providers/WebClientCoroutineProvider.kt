@@ -7,6 +7,7 @@ import com.tirmizee.providers.models.CreateProductResponse
 import com.tirmizee.providers.models.GetProductResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.reactor.awaitSingle
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import kotlinx.coroutines.withContext
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
@@ -15,12 +16,22 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 
-
 @Component
 class WebClientCoroutineProvider (
     @Qualifier("webClient") private val webClient: WebClient,
     private val webClientProperty: WebClientProperty
 ) {
+
+    suspend fun getBytes(url: String): ByteArray? =
+        withContext(Dispatchers.IO) {
+            webClient.get()
+                .uri(url)
+                .accept(MediaType.APPLICATION_OCTET_STREAM)
+                .headers{ webClientProperty.headers }
+                .retrieve()
+                .bodyToMono(ByteArray::class.java)
+                .awaitSingleOrNull()
+        }
 
     suspend fun getProduct(id: Int): Result<GetProductResponse?> =
         withContext(Dispatchers.IO) {

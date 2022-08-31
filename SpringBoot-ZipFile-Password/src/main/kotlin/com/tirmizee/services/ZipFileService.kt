@@ -15,6 +15,7 @@ class ZipFileService {
     suspend fun generateZipBytes() : ByteArray {
 
         val filename = "hello.txt"
+        val password = "password"
 
         val zipParameters = ZipParameters()
         zipParameters.compressionMethod = CompressionMethod.DEFLATE
@@ -25,7 +26,7 @@ class ZipFileService {
         zipParameters.aesKeyStrength = AesKeyStrength.KEY_STRENGTH_256
 
         val byteOutputStream = ByteArrayOutputStream()
-        val zipOutputStream = ZipOutputStream(byteOutputStream, "password".toCharArray())
+        val zipOutputStream = ZipOutputStream(byteOutputStream, password.toCharArray())
         zipOutputStream.putNextEntry(zipParameters)
         zipOutputStream.write(textFileContentBytes())
         zipOutputStream.flush()
