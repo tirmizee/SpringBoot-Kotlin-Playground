@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        bindings:
+          customerConsumer:
+            consumer:
+              configuration:
+                max.poll.interval.ms: 10000
+      binders:
+        kafka-broker:
+          type: kafka
+          environment.spring.cloud.stream.kafka.binder:
+            brokers: localhost:9092
+            autoAddPartitions: true
+            autoCreateTopics: true
+      bindings:
+        customerConsumer:
+          binder: kafka-broker
+          group: Customer.Group
+          destination: topic.customer
+        customerProducer:
+          binder: kafka-broker
+          destination: topic.customer
