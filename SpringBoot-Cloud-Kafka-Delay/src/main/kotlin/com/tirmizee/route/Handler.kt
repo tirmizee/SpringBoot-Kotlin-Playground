@@ -17,7 +17,7 @@ class Handler(
 ) {
 
     suspend fun produce(serverRequest: ServerRequest): ServerResponse {
-        val payload = "hello world broker"
+        val payload = "hello world broker " + UUID.randomUUID().toString()
         val messageHeader = MessageHeaders(Collections.singletonMap<String, Any>("X-Kafka-Retry", 0))
         val message = MessageBuilder.createMessage(payload, messageHeader)
         streamChannels.customerProducer().send(message)

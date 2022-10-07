@@ -6,7 +6,7 @@ spring:
           customerConsumer:
             consumer:
               configuration:
-                max.poll.interval.ms: 10000
+                max.poll.interval.ms: 100000
       binders:
         kafka-broker:
           type: kafka
