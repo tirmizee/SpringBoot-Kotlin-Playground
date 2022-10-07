@@ -21,7 +21,7 @@ class CustomerListener(
     private val streamChannels: StreamChannels
 ) {
 
-    val log: Logger = LoggerFactory.getLogger(CustomerListener::class.java);
+    val log: Logger = LoggerFactory.getLogger(CustomerListener::class.java)
 
     @StreamListener(StreamChannels.CUSTOMER_CONSUMER)
     fun customerListener(
@@ -31,7 +31,7 @@ class CustomerListener(
     ) {
         GlobalScope.launch {
             if (retry == 0) {
-                log.info("started ${message.payload} $topic Retry $retry")
+                log.info("started ${message.payload} $topic Retry $retry ${Date()}")
                 try {
                     throw NullPointerException()
                 } catch (e: Exception) {
@@ -40,8 +40,8 @@ class CustomerListener(
                     streamChannels.customerProducer().send(message)
                 }
             } else if (retry <= 5) {
-                delay(5000)
-                log.info("started ${message.payload} $topic Retry $retry")
+                delay(10000)
+                log.info("started ${message.payload} $topic Retry $retry ${Date()}")
                 try {
                     throw NullPointerException()
                 } catch (e: Exception) {
