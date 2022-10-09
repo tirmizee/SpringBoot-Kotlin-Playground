@@ -18,8 +18,8 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.nio.charset.StandardCharsets
 
-//@Order(2)
-//@Component
+ @Order(2)
+ @Component
 class CleanLoggingFilter : WebFilter {
 
     companion object {
@@ -27,7 +27,6 @@ class CleanLoggingFilter : WebFilter {
     }
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-
         val time = System.currentTimeMillis()
         val requestId = exchange.attributes["requestId"] as String
 
@@ -41,21 +40,19 @@ class CleanLoggingFilter : WebFilter {
 
         return chain.filter(requestResponseExchange)
             .doOnSuccess {
-                log.info("Request $requestId : method=${method}, uri=${path}, payload=${requestBody}")
-                log.info("Response $requestId : status=$status, method=${method}, uri=${path}, time=${System.currentTimeMillis() - time}, payload=${responseBody}")
+                log.info("Request $requestId : method=$method, uri=$path, payload=$requestBody")
+                log.info("Response $requestId : status=$status, method=$method, uri=$path, time=${System.currentTimeMillis() - time}, payload=$responseBody")
             }.doOnError {
-                log.info("Request $requestId : method=${method}, uri=${path}, payload=${requestBody}")
-                log.info("Response $requestId : status=$status, method=${method}, uri=${path}, time=${System.currentTimeMillis() - time}, payload=${responseBody}, exception=${it.message}")
+                log.info("Request $requestId : method=$method, uri=$path, payload=$requestBody")
+                log.info("Response $requestId : status=$status, method=$method, uri=$path, time=${System.currentTimeMillis() - time}, payload=$responseBody, exception=${it.message}")
             }
     }
-
 }
 
 class CaptureRequestResponseExchange(exchange: ServerWebExchange) : ServerWebExchangeDecorator(exchange) {
 
     override fun getRequest(): CaptureRequestDecorator = CaptureRequestDecorator(super.getRequest())
     override fun getResponse(): CaptureResponseDecorator = CaptureResponseDecorator(super.getResponse())
-
 }
 
 class CaptureRequestDecorator(delegate: ServerHttpRequest) : ServerHttpRequestDecorator(delegate) {
@@ -67,9 +64,8 @@ class CaptureRequestDecorator(delegate: ServerHttpRequest) : ServerHttpRequestDe
     }
 
     private fun capture(buffer: DataBuffer) {
-        bodyBuffer.append(StandardCharsets.UTF_8.decode(buffer.asByteBuffer()).toString())
+        bodyBuffer.append(StandardCharsets.UTF_8.decode(buffer.asByteBuffer().asReadOnlyBuffer()).toString())
     }
-
 }
 
 class CaptureResponseDecorator(delegate: ServerHttpResponse) : ServerHttpResponseDecorator(delegate) {
@@ -81,9 +77,6 @@ class CaptureResponseDecorator(delegate: ServerHttpResponse) : ServerHttpRespons
     }
 
     private fun capture(buffer: DataBuffer) {
-        bodyBuffer.append(StandardCharsets.UTF_8.decode(buffer.asByteBuffer()).toString())
+        bodyBuffer.append(StandardCharsets.UTF_8.decode(buffer.asByteBuffer().asReadOnlyBuffer()).toString())
     }
-
 }
-
-

@@ -1,5 +1,9 @@
 package com.tirmizee.filters
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.reactive.awaitSingle
+import kotlinx.coroutines.runBlocking
 import org.reactivestreams.Publisher
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -18,8 +22,8 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.nio.charset.StandardCharsets
 
-@Order(2)
-@Component
+//@Order(2)
+//@Component
 class LoggingFilter : WebFilter {
 
     companion object {
@@ -27,29 +31,28 @@ class LoggingFilter : WebFilter {
     }
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-
         val time = System.currentTimeMillis()
         val requestId = exchange.attributes["requestId"] as String
         val contentLength = exchange.request.headers.contentLength
 
-        if(contentLength < 0) {
+        if (contentLength < 0) {
             log.info("Request $requestId : method=${exchange.request.method}, uri=${exchange.request.path}")
         }
 
         return chain.filter(RequestResponseExchange(exchange, requestId, time))
+            .doOnSuccess {  }
+            .doOnError {  }
     }
-
 }
 
 class RequestResponseExchange(
     exchange: ServerWebExchange,
     private val requestId: String,
     private val time: Long
-): ServerWebExchangeDecorator(exchange) {
+) : ServerWebExchangeDecorator(exchange) {
 
     override fun getRequest(): ServerHttpRequest = RequestLoggingDecorator(super.getRequest(), requestId)
     override fun getResponse(): ServerHttpResponse = ResponseLoggingDecorator(super.getResponse(), requestId, time)
-
 }
 
 class RequestLoggingDecorator(
@@ -58,11 +61,10 @@ class RequestLoggingDecorator(
 ) : ServerHttpRequestDecorator(delegate) {
 
     override fun getBody(): Flux<DataBuffer> =
-        super.getBody().doOnNext{ buffer ->
+        super.getBody().doOnNext { buffer ->
             val body = StandardCharsets.UTF_8.decode(buffer.asByteBuffer()).toString()
             LoggingFilter.log.info("Request $requestId : method=${delegate.method}, uri=${delegate.path}, payload=$body")
         }
-
 }
 
 class ResponseLoggingDecorator(
@@ -71,13 +73,24 @@ class ResponseLoggingDecorator(
     private val time: Long
 ) : ServerHttpResponseDecorator(delegate) {
 
+    // //THIS LINE IS NOT EXECUTED WHEN AN EXCEPTION IS THROWN
     override fun writeWith(body: Publisher<out DataBuffer>): Mono<Void> {
-        val buffer = Flux.from(body).doOnNext { dataBuffer ->
-            val bodyBuffer = StandardCharsets.UTF_8.decode(dataBuffer.asByteBuffer()).toString()
-            LoggingFilter.log.info("Response $requestId : status=${delegate.statusCode}, time=${System.currentTimeMillis()- time}, payload=$bodyBuffer")
-        }
-        return super.writeWith(buffer)
+        return super.writeWith(
+            Flux.from(body).doOnNext { dataBuffer ->
+                val bodyBuffer = StandardCharsets.UTF_8.decode(dataBuffer.asByteBuffer().asReadOnlyBuffer()).toString()
+                LoggingFilter.log.info("Response $requestId : status=${delegate.statusCode}, time=${System.currentTimeMillis() - time}, payload=$bodyBuffer")
+            }
+        )
     }
 
+    override fun writeAndFlushWith(body: Publisher<out Publisher<out DataBuffer>>): Mono<Void> {
+        return super.writeAndFlushWith(
+            Flux.from(body).doOnNext { dataBuffer ->
+                runBlocking {
+                    val bodyBuffer = StandardCharsets.UTF_8.decode(dataBuffer.awaitSingle().asByteBuffer().asReadOnlyBuffer()).toString()
+                    LoggingFilter.log.info("Response $requestId : status=${delegate.statusCode}, time=${System.currentTimeMillis() - time}, payload=$bodyBuffer")
+                }
+            }
+        )
+    }
 }
-

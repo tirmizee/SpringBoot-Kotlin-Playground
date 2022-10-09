@@ -10,11 +10,10 @@ import java.util.*
 
 @Order(1)
 @Component
-class UniqueFilter: WebFilter {
+class UniqueFilter : WebFilter {
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         exchange.attributes["requestId"] = UUID.randomUUID().toString()
         return chain.filter(exchange)
     }
-
 }
