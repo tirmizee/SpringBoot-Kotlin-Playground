@@ -19,7 +19,7 @@ class Handlers {
     suspend fun payment(serverRequest: ServerRequest) =
         ServerResponse.ok().json().bodyValueAndAwait(
             serverRequest.awaitBody<PaymentRequest>().let {
-                throw NullPointerException()
+//                throw NullPointerException()
                 PaymentResponse(statusCode = "0000", statusDesc = "SUCCESS")
             }
         )

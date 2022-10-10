@@ -1,9 +1,5 @@
 package com.tirmizee.filters
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.reactive.awaitSingle
-import kotlinx.coroutines.runBlocking
 import org.reactivestreams.Publisher
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -22,8 +18,8 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.nio.charset.StandardCharsets
 
-//@Order(2)
-//@Component
+@Order(2)
+@Component
 class LoggingFilter : WebFilter {
 
     companion object {
@@ -38,10 +34,9 @@ class LoggingFilter : WebFilter {
         if (contentLength < 0) {
             log.info("Request $requestId : method=${exchange.request.method}, uri=${exchange.request.path}")
         }
-
         return chain.filter(RequestResponseExchange(exchange, requestId, time))
-            .doOnSuccess {  }
-            .doOnError {  }
+            .doOnSuccess { }
+            .doOnError { }
     }
 }
 
@@ -79,17 +74,6 @@ class ResponseLoggingDecorator(
             Flux.from(body).doOnNext { dataBuffer ->
                 val bodyBuffer = StandardCharsets.UTF_8.decode(dataBuffer.asByteBuffer().asReadOnlyBuffer()).toString()
                 LoggingFilter.log.info("Response $requestId : status=${delegate.statusCode}, time=${System.currentTimeMillis() - time}, payload=$bodyBuffer")
-            }
-        )
-    }
-
-    override fun writeAndFlushWith(body: Publisher<out Publisher<out DataBuffer>>): Mono<Void> {
-        return super.writeAndFlushWith(
-            Flux.from(body).doOnNext { dataBuffer ->
-                runBlocking {
-                    val bodyBuffer = StandardCharsets.UTF_8.decode(dataBuffer.awaitSingle().asByteBuffer().asReadOnlyBuffer()).toString()
-                    LoggingFilter.log.info("Response $requestId : status=${delegate.statusCode}, time=${System.currentTimeMillis() - time}, payload=$bodyBuffer")
-                }
             }
         )
     }
