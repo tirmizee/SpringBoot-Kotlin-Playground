@@ -30,26 +30,16 @@ class CustomerListener(
         @Header("X-Kafka-Retry") retry: Int
     ) {
         GlobalScope.launch {
-            if (retry == 0) {
-                log.info("started ${message.payload} $topic Retry $retry ${Date()}")
-                try {
-                    throw NullPointerException()
-                } catch (e: Exception) {
-                    val messageHeader = MessageHeaders(Collections.singletonMap<String, Any>("X-Kafka-Retry", retry + 1))
-                    val message = MessageBuilder.createMessage(message.payload, messageHeader)
-                    streamChannels.customerProducer().send(message)
-                }
-            } else if (retry <= 5) {
+            if (retry in 1..5) {
                 delay(10000)
-                log.info("started ${message.payload} $topic Retry $retry ${Date()}")
-                try {
-                    throw NullPointerException()
-                } catch (e: Exception) {
-                    val messageHeader = MessageHeaders(Collections.singletonMap<String, Any>("X-Kafka-Retry", retry + 1))
-                    val message = MessageBuilder.createMessage(message.payload, messageHeader)
-                    streamChannels.customerProducer().send(message)
-                }
-            } else {
+            }
+            log.info("started ${message.payload} $topic Retry $retry ${Date()}")
+            try {
+                throw NullPointerException()
+            } catch (e: Exception) {
+                val messageHeader = MessageHeaders(Collections.singletonMap<String, Any>("X-Kafka-Retry", retry + 1))
+                val message = MessageBuilder.createMessage(message.payload, messageHeader)
+                streamChannels.customerProducer().send(message)
             }
         }
     }
