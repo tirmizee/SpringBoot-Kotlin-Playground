@@ -2,7 +2,6 @@ package com.tirmizee.configs
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.reactive.HttpComponentsClientHttpConnector
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.netty.http.client.HttpClient
@@ -17,8 +16,9 @@ class WebClientConfig {
     fun webClient(): WebClient {
         val provider = ConnectionProvider
             .builder("custom")
-            .maxConnections(2)
-            .maxIdleTime(Duration.ofSeconds(30))
+            .maxConnections(500)
+            .maxLifeTime(Duration.ofMinutes(15))
+            .maxIdleTime(Duration.ofMinutes(10))
             .build()
         val httpClient = HttpClient.create(provider)
         val httpConnector = ReactorClientHttpConnector(httpClient)
